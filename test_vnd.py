@@ -14,15 +14,13 @@ class_name = ['00000',"1000","2000","5000","10000","20000","50000","100000","200
 
 base_model = VGG16(include_top=False,weights="imagenet",input_shape=(224,224,3))
 base_model.trainable = False
-my_model = tf.keras.Sequential([base_model,tf.keras.layers.Flatten(name="flatten"),tf.keras.layers.Dense(4096, activation='relu', name='fc1'),tf.keras.layers.Dense(4096, activation='relu', name='fc2'),tf.keras.layers.Dense(9,activation='softmax', name='predictions')])
-my_model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+model = tf.keras.Sequential([base_model,tf.keras.layers.Flatten(name="flatten"),tf.keras.layers.Dense(4096, activation='relu', name='fc1'),tf.keras.layers.Dense(4096, activation='relu', name='fc2'),tf.keras.layers.Dense(9,activation='softmax', name='predictions')])
+model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
 from tensorflow.keras.callbacks import ModelCheckpoint
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
-my_model = my_model()
-my_model.load_weights("weights-19-1.00.hdf5")
-# Print out model sum
-my_model = load_model('D:\\VND-pics\\model.h5')
+
+model.load_weights("weights-40-0.99.hdf5")
 
 while(True):
     # Capture frame-by-frame
@@ -40,7 +38,7 @@ while(True):
     image = np.expand_dims(image, axis=0)
 
     # Predict
-    predict = my_model.predict(image)
+    predict = model.predict(image)
     print("This picture is: ", class_name[np.argmax(predict[0])], (predict[0]))
     print(np.max(predict[0],axis=0))
     if (np.max(predict)>=0.8) and (np.argmax(predict[0])!=0):
