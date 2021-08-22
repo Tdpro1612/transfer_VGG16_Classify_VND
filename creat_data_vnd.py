@@ -18,7 +18,7 @@ import matplotlib.image as image
 
 
 
-class_name = ["1000","2000","5000","10000","20000","50000","100000","500000"]
+class_name = ["00000","1000","2000","5000","10000","20000","50000","100000","500000"]
 
 raw_folder = "D:\\VND-pics\\"
 def save_data(raw_folder=raw_folder):
