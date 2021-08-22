@@ -64,4 +64,4 @@ model_history = model.fit_generator(datagen.flow(X_train, y_train, batch_size=64
                                callbacks=callbacks_list)
 
 #save model
-mode.save("model_vgg16_pretrain.h5")
+model.save("model_vgg16_pretrain.h5")
