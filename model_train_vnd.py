@@ -31,7 +31,7 @@ from tensorflow.keras.applications.vgg16 import VGG16
 
 base_model = VGG16(include_top=False,weights="imagenet",input_shape=(224,224,3))
 base_model.trainable = False
-model = tf.keras.Sequential([base_model,tf.keras.layers.Flatten(name="flatten"),tf.keras.layers.Dense(4096, activation='relu', name='fc1'),tf.keras.layers.Dense(4096, activation='relu', name='fc2'),tf.keras.layers.Dense(10,activation='softmax', name='predictions')])
+model = tf.keras.Sequential([base_model,tf.keras.layers.Flatten(name="flatten"),tf.keras.layers.Dense(4096, activation='relu',tf.keras.layers.Dropout(0.5), name='fc1'),tf.keras.layers.Dense(4096, activation='relu', name='fc2'),tf.keras.layers.Dropout(0.5),tf.keras.layers.Dense(10,activation='softmax', name='predictions')])
 
 # Print out model summary
 model.summary()
@@ -58,7 +58,7 @@ datagen.fit(X_train)
 
 #train data
 model_history = model.fit_generator(datagen.flow(X_train, y_train, batch_size=64),
-                               epochs=50,# steps_per_epoch=len(X_train)//64,
+                               epochs=20,# steps_per_epoch=len(X_train)//64,
                                validation_data=datagen.flow(X_test,y_test,
                                batch_size=64),
                                callbacks=callbacks_list)
