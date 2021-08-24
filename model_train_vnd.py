@@ -46,14 +46,12 @@ filepath="weights-{epoch:02d}-{val_accuracy:.2f}.hdf5"
 checkpoint = ModelCheckpoint(filepath, monitor='val_accuracy', verbose=1, save_best_only=True, mode='max')
 callbacks_list = [checkpoint]
 
-datagen = ImageDataGenerator(
-    featurewise_center=True,
-    featurewise_std_normalization=True,
-    rotation_range=20,
-    width_shift_range=0.2,
-    height_shift_range=0.2,
-    horizontal_flip=True,
-    validation_split=0.2)
+datagen = (rotation_range=20, zoom_range=0.1,
+    rescale=1./255,
+	width_shift_range=0.1,
+    height_shift_range=0.1,
+	horizontal_flip=True,
+    brightness_range=[0.2,1.5], fill_mode="nearest")
 
 #train data
 model_history = model.fit_generator(datagen.flow(X_train, y_train, batch_size=64),
