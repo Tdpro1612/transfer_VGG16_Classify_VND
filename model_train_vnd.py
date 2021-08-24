@@ -54,7 +54,6 @@ datagen = ImageDataGenerator(
     height_shift_range=0.2,
     horizontal_flip=True,
     validation_split=0.2)
-datagen.fit(X_train)
 
 #train data
 model_history = model.fit_generator(datagen.flow(X_train, y_train, batch_size=64),
