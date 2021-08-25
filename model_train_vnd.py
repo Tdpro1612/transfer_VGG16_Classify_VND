@@ -46,7 +46,7 @@ filepath="weights-{epoch:02d}-{val_accuracy:.2f}.hdf5"
 checkpoint = ModelCheckpoint(filepath, monitor='val_accuracy', verbose=1, save_best_only=True, mode='max')
 callbacks_list = [checkpoint]
 
-datagen = (rotation_range=20, zoom_range=0.1,
+datagen = ImageDataGenerator(rotation_range=20, zoom_range=0.1,
     rescale=1./255,
 	width_shift_range=0.1,
     height_shift_range=0.1,
